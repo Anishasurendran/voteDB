@@ -6,7 +6,13 @@ class UserDetails(models.Model):
     name=models.CharField(max_length=10,default=None)
     address=models.CharField(max_length=30,default=None)
     father_name=models.CharField(max_length=10,default=None)
-    gender=models.CharField(max_length=10,default='Male')
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+
+    #gender=models.CharField(max_length=10,default=None)
     dob=models.DateField(default=None)
     district=models.CharField(max_length=15,default=None)
     taluk=models.CharField(max_length=15,default=None)
