@@ -8,15 +8,20 @@ class CandidateDetails(models.Model):
     cand_gender=models.CharField(max_length=10,default=None)
     cand_district=models.CharField(max_length=10,default=None)
     cand_taluk=models.CharField(max_length=10,default=None)
-    cand_phoneno=models.IntegerField(max_length=10,default=0)
+    cand_phoneno=models.IntegerField(default=0)
+
+
 class Election(models.Model):
     election_sdate=models.DateField(default=None)
     election_edate=models.DateField(default=None)
+
+
 class Electioninfo(models.Model):
-    election_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    candidate_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    election=models.ForeignKey(Election,on_delete=models.CASCADE)
+    candidate=models.ForeignKey(CandidateDetails,on_delete=models.CASCADE)
+
 class Voting(models.Model):
-    elect=ForeignKey(Electioninfo,on_delete=models.CASCADE) 
+    elect=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
     vote=models.IntegerField(default=0)
     
     
