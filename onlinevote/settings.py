@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
-     'user_authenticate_vote',
-     'candidate_vote',
+    'user_authenticate_vote',
+    'candidate_vote',
+    'public',
+
 
 ]
 
