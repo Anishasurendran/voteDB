@@ -5,8 +5,8 @@ from .models import CandidateDetails,Election
 
 @admin.register(CandidateDetails)
 class CandidateDetailsAdmin(admin.ModelAdmin):
-    list_display=('candidate_name','candidate_district','candidate_phoneno',)
-    ordering=('candidate_name','candidate_phoneno',)
+    list_display=('candidate_name','cand_district','cand_phoneno',)
+    ordering=('candidate_name','cand_phoneno',)
     search_fields=('candidate_name',)
 
 @admin.register(Election)
