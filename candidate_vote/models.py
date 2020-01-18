@@ -12,6 +12,7 @@ class CandidateDetails(models.Model):
 
 
 class Election(models.Model):
+    election_name=models.CharField(max_length=10,default=None)
     election_sdate=models.DateField(default=None)
     election_edate=models.DateField(default=None)
 
