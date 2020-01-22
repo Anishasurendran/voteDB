@@ -4,4 +4,7 @@ from django.views.generic import TemplateView
 
 
 class LandingView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'landing.html'
+
+class RegisterView(TemplateView):
+    template_name= 'register.html'

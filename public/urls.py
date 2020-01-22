@@ -1,8 +1,7 @@
-from django.conf.urls import url
+from django.urls import path
 
-from .views import LandingView
+from .views import LandingView, RegisterView
 urlpatterns = [
-    url("",
-        LandingView.as_view(),
-        name="dashboard"),
+    path("", LandingView.as_view(), name="dashboard"),
+    path("register/", RegisterView.as_view(), name="join"),
 ]
