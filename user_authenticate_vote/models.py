@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from candidate_vote.models import Location
 
 class UserDetails(models.Model):
     adhar_number=models.CharField(max_length=12,default=None)
@@ -18,7 +19,7 @@ class UserDetails(models.Model):
     taluk=models.CharField(max_length=15,default=None)
     phone_number=models.CharField(max_length=10,default=None)
     photo=models.ImageField(default=None)
-
+    location=models.ForeignKey(Location,on_delete=models.CASCADE)
 
     
 
