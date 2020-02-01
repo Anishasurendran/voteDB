@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('public.urls')),
     path('',include('candidate_vote.urls')),
-    path('',include('user_authenticate.urls')),
+    path('',include('user_authenticate_vote.urls')),
 ]

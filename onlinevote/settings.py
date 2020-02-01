@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user_authenticate_vote',
     'candidate_vote',
     'public',
+    'rest_framework',
 
 
 ]
