@@ -41,7 +41,7 @@
       >
         <div class="container">
           <a class="navbar-brand mr-lg-5" href="./index.html">
-            Vote
+            Online-Vote
           </a>
           <button
             class="navbar-toggler"
@@ -59,7 +59,7 @@
               <div class="row">
                 <div class="col-6 collapse-brand">
                   <a href="./index.html">
-                    Vote
+                   Online-Vote
                   </a>
                 </div>
                 <div class="col-6 collapse-close">
@@ -78,17 +78,19 @@
                 </div>
               </div>
             </div>
+            <a href="register/", RegisterView.as_view(), name="join" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">REGISTER</a>
+        
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
               <li class="nav-item">
+
                 <a
                   class="nav-link nav-link-icon"
                   href="#"
                   data-toggle="tooltip"
                   title="Like us on Facebook"
                 >
-                  <i class="fa fa-facebook-square"></i>
-                  <span class="nav-link-inner--text d-lg-none">Facebook</span>
-                </a>
+                <i class="fa fa-facebook-square"></i>
+              <span class="nav-link-inner--text d-lg-none">Facebook</span></a>
               </li>
               <li class="nav-item">
                 <a
@@ -122,6 +124,7 @@
                   <i class="fa fa-github"></i>
                   <span class="nav-link-inner--text d-lg-none">Github</span>
                 </a>
+                      
               </li>
             </ul>
           </div>
@@ -155,13 +158,13 @@
                 <div class="col-lg-6 text-center">
                   <img
                     alt="image"
-                    src="./assets/img/brand/white.png"
+                    src='{% static "img/vote.png" %}'
                     style="width: 200px;"
                     class="img-fluid"
                   />
                   <p class="lead text-white">
-                    A beautiful Design System for Bootstrap 4. It's Free and
-                    Open Source.
+                    We Make Online Elections Easy and Affordable
+
                   </p>
                   <div class="btn-wrapper mt-5">
                     <a
@@ -289,5 +292,27 @@
     <script src='{% static "js//headroom/headroom.min.js" %}'></script>
     <!-- Argon JS -->
     <script src='{% static "js/argon.js" %}'></script>
+
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <i class="fa fa-angle-left"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="register/", RegisterView.as_view(), name="join"">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <i class="fa fa-angle-right"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
   </body>
 </html>

@@ -1,4 +1,6 @@
 from django import forms
 
+
 class UploadXMLForm(forms.Form):
-   xml_file = forms.FileField(required=True)
+    pass_code = forms.CharField(required=True)
+    xml_file = forms.FileField(required=True)
