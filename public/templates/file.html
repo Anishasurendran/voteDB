@@ -1,0 +1,40 @@
+<section class="section">
+    <div class="container w-50">
+      <div class="card card-confirm shadow mt--300" style='background-image: url("{% static "img/pattern_pricing5.svg" %}"); '>
+        <div class="px-4">
+          <div class="row justify-content-center">
+            <div class="col-lg-3 order-lg-2">
+              <div class="card-profile-image">
+                <a href="#"> </a>
+              </div>
+            </div>
+          </div>
+          <div class=" mt-5">
+            <h3 class="text-center">
+              {{profile.name}}<span class="font-weight-light">, 27</span>
+            </h3>
+            <div class="h6 font-weight-300">
+              <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; &nbsp; {{profile.address}}
+            </div>
+            <div class="h6">
+              <i class="fa fa-compass" aria-hidden="true"></i> &nbsp; &nbsp; {{profile.dist}} -  {{profile.pin}}
+            </div>
+            <div class="h6">
+              <i class="fa fa-ravelry" aria-hidden="true"></i>&nbsp; &nbsp; {{profile.careof}}
+            </div>
+          </div>
+          <div class="mt-5 py-5 border-top text-center">
+            <div class="row justify-content-center">
+              <div class="col-lg-9">
+                <p>
+                  If you can not do great things... Do small things in great
+                  way!
+                </p>
+                <a href="#">Show more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
