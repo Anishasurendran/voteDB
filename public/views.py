@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import UploadXMLForm
-from .models import TempData
-from .serializers import TempDataSerializers
+from authy.api import AuthyApiClient
+from rest_framework.response import Response
+from django.conf import settings
 
 from zipfile import ZipFile
 from datetime import datetime
 import json
 import xml.etree.ElementTree as ET
+
+from .forms import UploadXMLForm, ProfileCompleteFrom, PhoneVerificationForm
+from .models import TempData
+from .serializers import TempDataSerializers
+
+
+
+authy_api = AuthyApiClient(settings.ACCOUNT_SECURITY_API_KEY)
 
 
 class LandingView(TemplateView):
@@ -28,6 +36,42 @@ class ConfirmView(TemplateView):
         context['profile'] = serializer.data
         return self.render_to_response(context)
 
+
+def profile_complete(request):
+    if request.method == "POST":
+        profile_form = ProfileCompleteFrom(request.POST)
+        if profile_form.is_valid():
+            phone = profile_form.cleaned_data['phone']
+            aadhar = profile_form.cleaned_data['aadhar']
+
+            request.session['phone_number'] = phone
+
+            authy_api.phones.verification_start(
+                form.cleaned_data['phone_number'],
+                '91',
+                via='sms'
+            )
+            return Response({}, 200)
+    else:
+        form = VerificationForm()
+
+def phone_verification(request):
+    if request.method == "POST":
+        verification_form = PhoneVerificationForm(request.POST)
+        if verification_form.is_valid():
+            verification_code = verification_form.cleaned_data['verification_code']
+            verification = authy_api.phones.verification_check(
+                request.session['phone_number'],
+                '91',
+                verification_code
+            )
+            if verification.ok():
+                request.session['is_verified'] = True
+                return redirect('verified')
+            else:
+                for error_msg in verification.errors().values():
+                    form.add_error(None, error_msg)
+        
 
 def uploadXML(request):
 
