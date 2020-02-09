@@ -1,3 +1,14 @@
+.camera{
+  position: relative;
+}
+
+.contentarea .btn{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 .skew-separator {
   overflow: hidden;
 }

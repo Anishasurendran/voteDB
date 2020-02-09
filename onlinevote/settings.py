@@ -127,4 +127,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "files")
 
-ACCOUNT_SECURITY_API_KEY=""
+ACCOUNT_SECURITY_API_KEY="dLPchTWedcYua1Dlnvq0hbnZ49YhXKdk"
