@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', 
+    'django.contrib.staticfiles',
     'user_authenticate_vote',
     'candidate_vote',
     'public',
@@ -124,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "files")
+
+ACCOUNT_SECURITY_API_KEY="dLPchTWedcYua1Dlnvq0hbnZ49YhXKdk"
