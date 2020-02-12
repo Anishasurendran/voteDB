@@ -104,7 +104,7 @@ def uploadXML(request):
             with ZipFile(UploadForm.cleaned_data['xml_file']) as zf:
                 length = len(zf.filename) - 4
                 extracted = zf.extract(
-                    zf.filename[:length]+'.xml', path="./files", pwd=b'5aef')
+                    zf.filename[:length]+'.xml', path="./files", pwd=b'1234')
             tree = ET.parse(extracted)
             root = tree.getroot()
             for element in root.find('UidData'):
