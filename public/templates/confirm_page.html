@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="Start your development with a Design System for Bootstrap 4." />
   <meta name="author" content="Creative Tim" />
-  <title>Argon Design System - Free Design System for Bootstrap 4</title>
+  <title>Vote Confirm</title>
   <!-- Favicon -->
   <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
   <!-- Fonts -->
@@ -37,7 +37,8 @@
 
 <body>
   <header class="header-global">
-    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent headroom headroom--top headroom--not-bottom">
+    <nav id="navbar-main"
+      class="navbar navbar-main navbar-expand-lg navbar-transparent headroom headroom--top headroom--not-bottom">
       <div class="container">
         <a class="navbar-brand mr-lg-5" href="./index.html">
           Online Vote
@@ -95,56 +96,96 @@
   </header>
 
   <main>
-    <section class="page-header section bg-default section-shaped section-lg register">
-      <div class="page-header-image" style='background-image: url("{% static "img/register_bg.png" %}")'></div>
-      <div class="container pt-lg-md">
-        <div class="form-container sign-in-container">
-          <form action='{% url "xml_upload" %}' method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>Sign In</h2>
-            <span class="text-default mb-4">upload your KYC file</span>
-            <div class="form-group">
-              <div class="input-group input-group-alternative mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                </div>
-                <input class="form-control" placeholder="Your passcode" type="text" name="pass_code" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group input-group-alternative mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                </div>
-                <input class="form-control" placeholder="Your offline KYC zip file" type="file" name="xml_file" />
-              </div>
-            </div>
+    <section class="page-header section bg-default section-shaped section-lg profile-complete">
+      <div class="page-header-image" style='background-image: url("{% static "img/reset.svg" %}")'></div>
 
-            <div class="row my-4">
-              <div class="col-12">
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id="customCheckRegister" type="checkbox" required />
-                  <label class="custom-control-label" for="customCheckRegister"><span>I agree with the
-                      <a href="#">Privacy Policy</a></span></label>
+      <div class="container" id="container">
+        <div class="form-container sign-in-container">
+          <form id="phone-form" class="px-3" method="POST">
+            {% csrf_token %}
+            <h2 style="margin-top: -98px;">Complete your profile</h2>
+            <div class="form-group px-4 mt-4">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                 </div>
+                <input class="form-control" placeholder="Aadhar Card Number" type="text" name="aadhar" required />
+              </div>
+            </div>
+            <div class="form-group px-4">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                </div>
+                <input class="form-control" placeholder="Phone Number" type="text" name="phone" required />
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary mt-4">
-                Create account
+              <button type="submit" class="btn btn-primary mt-4" id="continue">
+                Continue
               </button>
             </div>
           </form>
         </div>
+        <div class="form-container sign-up-container">
+          <form action='{% url "phone_verification" id=profile.id  %}' method="POST" role="form">
+            {% csrf_token %}
+            <h2>Verify your phone</h2>
+            <span class="text-default mb-4"></span>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Enter OTP" name="verification_code" type="number">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Verify</button>
+          </form>
+        </div>
         <div class="overlay-container">
           <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <div class="px-0">
+                <div class="mt-5 text-left">
+                  <h3 class="text-center text-white">
+                    {{profile.name}}<span class="font-weight-light">, 27</span>
+                  </h3>
+                  <div class="h6 font-weight-400 text-white mt-4">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;{{profile.address}}
+                  </div>
+                  <div class="h6 text-white">
+                    {{profile.dist}} - {{profile.pin}}
+                  </div>
+                  <div class="h6 text-white">
+                    {{profile.careof}}
+                  </div>
+                  {% ifequal profile.gender "M" %}
+                  Gender : <i class="fa fa-mars" aria-hidden="true"></i>
+                  {% endifequal %}
+                  {% ifequal profile.gender "F" %}
+                  Gender : <i class="fa fa-venus" aria-hidden="true"></i>
+                  {% endifequal %}
+                </div>
+                <div class="mt-5 py-5 px-0 border-top text-center">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                      <p>
+                        If you can not do great things... Do small things in great
+                        way!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="overlay-panel overlay-right">
               <h1 class="text-white">Hello, Friend!</h1>
-              <p>Upload your aadhar KYC zip file and start journey with us</p>
+              <p>We have send OTP to you phone</p>
+              <button class="btn btn-neutral btn-sm" id="signUp">Wrong Number?</button>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -212,6 +253,44 @@
   <script src='{% static "js//headroom/headroom.min.js" %}'></script>
   <!-- Argon JS -->
   <script src='{% static "js/argon.js" %}'></script>
+  <script>
+    // The SignUp/SignIn form
+
+    var csrfmiddlewaretoken = "{{csrf_token}}"
+    var post_data = {
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    }
+
+
+    const signUpButton = document.getElementById('signUp');
+    const continueButton = document.getElementById('continue');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+      container.classList.remove('right-panel-active');
+    });
+
+    $('#phone-form').on('submit', function (e) {
+      e.preventDefault()
+      form = $(this)
+      formData = new FormData(this)
+      // console.log(form.serializeArray(), formData.get('phone'))
+
+      $.ajax({
+        url: '{% url "profile_complete" id=profile.id %}',
+        data: formData,
+        method: "POST",
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          container.classList.add('right-panel-active');
+        }
+      });
+      return false
+    })
+  </script>
+
 </body>
+
 
 </html>

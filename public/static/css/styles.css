@@ -1,0 +1,416 @@
+.camera{
+  position: relative;
+}
+
+.contentarea .btn{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.skew-separator {
+  overflow: hidden;
+}
+.skew-separator:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  transform: skewY(-8deg);
+  background: #fff;
+  top: 88%;
+  z-index: 1;
+}
+
+.page-header-image {
+  position: absolute;
+  background-size: cover;
+  background-position: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.page-header {
+  min-height: 100vh;
+  max-height: 999px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.card-heigh {
+  z-index: 111;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+.phone-container {
+  left: 0;
+  transform: translateX(100%);
+  width: 50%;
+  opacity: 1;
+  z-index: 5;
+  z-index: 5;
+}
+
+.register .container {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.register.phone-register .container{
+  width: 832px;
+}
+
+.page-header .container {
+  height: 100%;
+  z-index: 1;
+}
+.page-header > .container,
+.page-header > .container-fluid {
+  padding-top: 8vh;
+  padding-bottom: 40px;
+}
+.card-confirm {
+  min-height: 582px;
+}
+
+.card-profile[data-background="cover"] {
+  overflow: hidden;
+}
+
+.card-profile[data-background="cover"] .pattern {
+  position: absolute;
+  top: -98%;
+}
+
+.pattern {
+  width: 100%;
+}
+img,
+svg {
+  vertical-align: middle;
+}
+
+.register .sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.register .form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.register form {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+.register h1 {
+  font-weight: 700;
+  margin: 0;
+}
+.register .overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+.register .overlay {
+  background: #5e72e4;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.register .overlay-left {
+  left: 0;
+  transform: translateX(-20%);
+}
+.register .overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+
+
+
+.profile-complete .container {
+  background-color: #fff;
+  border-radius: .25rem;
+  box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px
+}
+
+.profile-complete .page-header .page-header-image {
+  z-index: 1!important
+}
+
+.profile-complete .footer {
+  background: #172b4d
+}
+
+.profile-complete .footer .copyright a,.profile-complete .footer h3,.profile-complete .footer h4 {
+  color: #fff
+}
+
+.profile-complete h1 {
+  font-weight: 700;
+  margin: 0
+}
+
+.profile-complete p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: .5px;
+  margin: 20px 0 30px
+}
+
+.profile-complete a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none
+}
+
+.profile-complete button {
+  transition: transform 80ms ease-in
+}
+
+.profile-complete button:active {
+  transform: scale(.95)
+}
+
+.profile-complete button:focus {
+  outline: none
+}
+
+.profile-complete button.ghost {
+  background-color: transparent;
+  border-color: #fff
+}
+
+.profile-complete form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center
+}
+
+.profile-complete .form-container .form-group {
+  width: 100%
+}
+
+.profile-complete .social-container {
+  margin: 20px 0
+}
+
+.profile-complete .social-container a {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px
+}
+
+.profile-complete .form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all .6s ease-in-out
+}
+
+.profile-complete .sign-in-container {
+  transform: translateX(100%);
+  left: 0;
+  width: 50%;
+  z-index: 2
+}
+
+.profile-complete .sign-up-container {
+  transform: translateX(100%);
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1
+}
+
+.profile-complete .container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+}
+
+.profile-complete .container.right-panel-active .sign-up-container {
+  transform: translateX(0%);
+  opacity: 1;
+  z-index: 5;
+  animation: m .6s
+}
+
+@keyframes m {
+  0%,49.99% {
+      opacity: 0;
+      z-index: 1
+  }
+
+  50%,to {
+      opacity: 1;
+      z-index: 5
+  }
+}
+
+.profile-complete .overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform .6s ease-in-out;
+  z-index: 100;
+  transform: translateX(-100%)
+}
+
+.profile-complete .container.right-panel-active .overlay-container {
+  transform: translateX(0)
+}
+
+.profile-complete .overlay {
+  background: #5e72e4;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(50%);
+  transition: transform .6s ease-in-out
+}
+
+.profile-complete .container.right-panel-active .overlay {
+  transform: translateX(0);
+}
+
+.profile-complete .overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform .6s ease-in-out
+}
+
+.profile-complete .overlay-left {
+  transform: translateX(0)
+}
+
+.profile-complete .container.right-panel-active .overlay-left {
+  transform: translateX(-20%)
+}
+
+.profile-complete .overlay-right {
+  right: 0;
+  transform: translateX(20%)
+}
+
+.profile-complete .container.right-panel-active .overlay-right {
+  transform: translateX(0)
+}
+
+@media (max-width: 767.98px) {
+  .profile-complete form {
+      padding:0 10px!important
+  }
+
+  .profile-complete form>h2 {
+      line-height: 1.3!important
+  }
+}
+
+@media (max-width: 375px) {
+  .profile-complete h1 {
+      font-size:1.5rem
+  }
+
+  .profile-complete .overlay-panel {
+      padding: 0 15px
+  }
+
+  .profile-complete .social-container {
+      margin: 10px 0!important
+  }
+
+  .profile-complete form {
+      padding: 30px 10px 0!important
+  }
+}
