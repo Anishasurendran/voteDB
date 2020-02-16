@@ -13,4 +13,4 @@ class PhoneVerificationForm(forms.Form):
     verification_code = forms.CharField(required = True)
 
 class PhotoUploadForm(forms.Form):
-    profile_photo= forms.ImageField(required = True)
+    profile_photo= forms.CharField(required = True)

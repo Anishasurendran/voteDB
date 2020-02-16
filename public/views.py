@@ -4,6 +4,12 @@ from authy.api import AuthyApiClient
 from rest_framework.response import Response
 from django.conf import settings
 from django.http import HttpResponse
+import base64
+from PIL import Image
+from io import BytesIO
+
+
+
 
 from zipfile import ZipFile
 from datetime import datetime
@@ -78,7 +84,7 @@ def phone_verification(request, id):
             )
             if verification.ok():
                 request.session['is_verified'] = True
-                return redirect('verified')
+                return redirect('/confirm/'+str(id)+'/photo')
             else:
                 for error_msg in verification.errors().values():
                     verification_form.add_error(None, error_msg)
@@ -86,9 +92,16 @@ def phone_verification(request, id):
 
 def image_upload(request, id):
     if request.method == "POST":
-        upload_form = PhotoUploadForm(files = request.FILES)
-        if upload_form.isValid():
-            print(upload_form.cleaned_data['profile_photo'])
+        upload_form = PhotoUploadForm(request.POST, request.FILES)
+        if upload_form.is_valid():
+            im = Image.open(BytesIO(base64.b64decode(upload_form.cleaned_data['profile_photo'])))
+            im.save('image.png', 'PNG')
+            print(im)
+            return HttpResponse("Done")
+        else:
+            print(upload_form.errors)
+            return HttpResponse("Error")
+            
     else:
         form =  PhotoUploadForm()
         

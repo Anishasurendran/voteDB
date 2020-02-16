@@ -202,10 +202,20 @@
             e.preventDefault()
             canvas = document.getElementById('canvas');
             formData = new FormData(this)
-            canvas.toBlob(function (blob) {
-                formData.append('profile_photo', blob, 'profile_photo')
-            }, 'image/jpeg')
-            
+            image64 = canvas.toDataURL()
+            formData.append('profile_photo', image64.split(',')[1])
+            $.ajax({
+                url: '{% url "image_upload" id=profile.id %}',
+                data: formData,
+                method: "POST",
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert("Photo Uploaded")
+                }
+            })
+
+            return false
         })
 
     </script>
