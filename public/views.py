@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.core.files.base import ContentFile
 from authy.api import AuthyApiClient
 from rest_framework.response import Response
 from django.conf import settings
@@ -7,6 +8,7 @@ from django.http import HttpResponse
 import base64
 from PIL import Image
 from io import BytesIO
+from django.core.files.base import ContentFile
 
 
 
@@ -18,7 +20,10 @@ import xml.etree.ElementTree as ET
 
 from .forms import UploadXMLForm, ProfileCompleteFrom, PhoneVerificationForm, PhotoUploadForm
 from .models import TempData
+from django.contrib.auth.models import User
+from candidate_vote.models import Location
 from .serializers import TempDataSerializers
+from user_authenticate_vote.models import UserDetails
 
 
 
@@ -53,13 +58,19 @@ class PhotoUploadView(TemplateView):
         context['profile'] = serializer.data
         return self.render_to_response(context)
 
+class RegistrationCompleteView(TemplateView):
+    template_name="profile_complete.html"
+
 
 def profile_complete(request, id):
     if request.method == "POST":
         profile_form = ProfileCompleteFrom(request.POST)
         if profile_form.is_valid():
+            userTempdata = TempData.objects.get(pk=id)
             phone = profile_form.cleaned_data['phone']
             aadhar = profile_form.cleaned_data['aadhar']
+            userTempdata.aadhar = aadhar
+            userTempdata.save()
 
             request.session['phone_number'] = phone
 
@@ -94,10 +105,37 @@ def image_upload(request, id):
     if request.method == "POST":
         upload_form = PhotoUploadForm(request.POST, request.FILES)
         if upload_form.is_valid():
-            im = Image.open(BytesIO(base64.b64decode(upload_form.cleaned_data['profile_photo'])))
-            im.save('image.png', 'PNG')
-            print(im)
-            return HttpResponse("Done")
+            userTempData= TempData.objects.get(pk=id)
+            if userTempData:
+
+                image = Image.open(BytesIO(base64.b64decode(upload_form.cleaned_data['profile_photo'])))
+                user =  User.objects.get(username = userTempData.aadhar)
+                if not user:
+                    user = User.objects.create_user(username=userTempData.aadhar, first_name=userTempData.name)
+                    user.set_password(userTempData.dob)
+
+                location = Location.objects.get(pk=1)
+                userDetails =  UserDetails(
+                    user=user,
+                    adhar_number=userTempData.aadhar, 
+                    name= userTempData.name,
+                    address= userTempData.address,
+                    careof= userTempData.careof,
+                    gender= userTempData.gender,
+                    dob= userTempData.dob,
+                    district= userTempData.dist,
+                    phone_number=  request.session['phone_number'],
+                    location=location
+                )
+                userDetails.save()
+                image_io = BytesIO()
+                image.save(image_io, format='png', quality=100) # you can change format and quality
+
+                # save to model
+                image_name = "profile.png"
+                userDetails.photo.save(image_name, ContentFile(image_io.getvalue()))
+
+                return redirect('confirm/complete/')
         else:
             print(upload_form.errors)
             return HttpResponse("Error")
@@ -117,7 +155,7 @@ def uploadXML(request):
             with ZipFile(UploadForm.cleaned_data['xml_file']) as zf:
                 length = len(zf.filename) - 4
                 extracted = zf.extract(
-                    zf.filename[:length]+'.xml', path="./files", pwd=b'1234')
+                    zf.filename[:length]+'.xml', path="./files", pwd=UploadForm.cleaned_data['pass_code'].encode())
             tree = ET.parse(extracted)
             root = tree.getroot()
             for element in root.find('UidData'):

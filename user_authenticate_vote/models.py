@@ -16,7 +16,7 @@ class UserDetails(models.Model):
     dob=models.DateField(default=None)
     district=models.CharField(max_length=15,default=None)
     phone_number=models.CharField(max_length=10,default=None)
-    photo=models.ImageField(default=None)
+    photo=models.ImageField(default=None, blank=True, null=True)
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
 
     

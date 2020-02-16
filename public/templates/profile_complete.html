@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Start your development with a Design System for Bootstrap 4." />
     <meta name="author" content="Creative Tim" />
-    <title>Vote | Photo Upload</title>
+    <title>Registration Complete</title>
     <!-- Favicon -->
     <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png" />
     <!-- Fonts -->
@@ -100,35 +100,13 @@
     </header>
 
     <main>
-        <section class="page-header section bg-default section-shaped section-lg register">
-            <div class="page-header-image" style='background-image: url("{% static "img/register_bg.png" %}")'></div>
-            <div class="container pt-lg-md">
-                <div class="form-container sign-in-container px-2 py-5">
-                    <div class="contentarea">
-                        <div class="camera" style="margin-top: -126px;">
-                            <video id="video" class="mx-auto col-lg-12">Video stream not available.</video>
-                        </div>
-                        <button id="startbutton" type="button" class="btn btn-outline-success">Capture</button>
-                        <canvas id="canvas" class="d-none">
-                        </canvas>
-                    </div>
-                </div>
-                <div class="overlay-container">
-                    <div class="overlay">
-                        <div class="overlay-panel overlay-right justify-content-start py-5 px-2">
-                            <h4 class="text-white">Let us have your photo</h4>
-                            <form id="upload-form" method="POST">
-                                {%csrf_token%}
-                                <div class="output">
-                                    <img id="photo" class="img-fluid rounded shadow-lg"
-                                        alt="The screen capture will appear in this box.">
-                                </div>
-                                <button id="upload" type="submit" class="btn btn-info mt-4" disabled>Upload</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <section class="page-header section bg-default section-shaped section-lg profile-complete">
+            <div class="page-header-image" style='background-image: url("{% static "img/reset.svg" %}")'></div>
 
+            <div class="container bg-purple text-center" id="container">
+                <h1>Hello, Friend!</h1>
+                <h6 class="text-white mt-3">You have completed registration with us. You can now use our app for voting.</p>
+                <h3>Thank you</h3>
             </div>
         </section>
     </main>
@@ -196,29 +174,27 @@
     <script src='{% static "js//headroom/headroom.min.js" %}'></script>
     <!-- Argon JS -->
     <script src='{% static "js/argon.js" %}'></script>
-    <script src='{% static "js/capture.js" %}'></script>
     <script>
-        $('#upload-form').on("submit", function (e) {
-            e.preventDefault()
-            canvas = document.getElementById('canvas');
-            formData = new FormData(this)
-            image64 = canvas.toDataURL()
-            formData.append('profile_photo', image64.split(',')[1])
-            $.ajax({
-                url: '{% url "image_upload" id=profile.id %}',
-                data: formData,
-                method: "POST",
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    alert("Photo Uploaded")
-                }
-            })
+        // The SignUp/SignIn form
 
-            return false
-        })
+        var csrfmiddlewaretoken = "{{csrf_token}}"
+        var post_data = {
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        }
+
+
+        const signUpButton = document.getElementById('signUp');
+        const continueButton = document.getElementById('continue');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.remove('right-panel-active');
+        });
+
 
     </script>
+
 </body>
+
 
 </html>

@@ -4,6 +4,7 @@ from django.db import models
 
 
 class TempData(models.Model):
+    aadhar = models.CharField(max_length=12,default=None, blank=True, null=True)
     dob = models.DateField(default=None)
     gender = models.CharField(default=None, max_length=1)
     name = models.CharField(default=None, max_length=25)
