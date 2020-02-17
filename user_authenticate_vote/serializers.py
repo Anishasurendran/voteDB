@@ -15,12 +15,12 @@ class UserDetailsserializers(serializers.ModelSerializer):
 class AadharVerifySerializers(serializers.Serializer):
     aadhar = serializers.CharField(write_only=True)
     phone =  serializers.CharField(read_only = True)
-    user =  serializers.CharField(read_only = True)
+    user =  serializers.IntegerField(read_only = True)
 
     def validate(self, attrs):
         aadhar = attrs['aadhar']
-        userDetails =  UserDetails.objects.get(adhar_number = aadhar)
-        if not userDetails:
+        userDetails =  UserDetails.objects.filter(adhar_number = aadhar)
+        if not userDetails.exists():
             raise serializers.ValidationError("User does not exist")
 
         return attrs
@@ -35,18 +35,18 @@ class AadharVerifySerializers(serializers.Serializer):
         return validated_data
 
 class PhoneVerifySerializers(serializers.Serializer):
-    otp = serializers.IntegerField()
+    otp = serializers.CharField()
 
     def create(self, validated_data):
         return validated_data
 
 class PhotoVerifySerializer(serializers.Serializer):
     photo = serializers.ImageField()
-    id = serializers.CharField(read_only=True)
+    user = serializers.IntegerField(read_only=True)
     token = serializers.CharField(read_only=True)
 
     def create(self, validated_data):
-        id = validated_data['id']
+        id = validated_data['user']
         user = UserDetails.objects.get(pk = id)
         # following are rest jwt settings
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER

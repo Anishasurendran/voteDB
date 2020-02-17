@@ -44,7 +44,6 @@ class VerifyAadhar(APIView):
             return Response(verifySerializers.errors, 400)
         else:
             verifySerializers.save()
-            print(verifySerializers.data)
             authy_api.phones.verification_start(
                 verifySerializers.data['phone'],
                 '91',
@@ -63,7 +62,6 @@ class PhoneVerification(APIView):
             return Response(phoneSerializer.errors, 400)
         else:
             phoneSerializer.save()
-
             userDetails =  UserDetails.objects.get(pk=id)
             verification = authy_api.phones.verification_check(
                 userDetails.phone_number,
@@ -95,7 +93,7 @@ class PhotoVerification(APIView):
         if not photoSerializer.is_valid():
             return Response(photoSerializer.errors, 400)
         else:
-            photoSerializer.save(id=id)
+            photoSerializer.save(user=id)
             return Response(photoSerializer.data)
         image = photoSerializer.data['image']
     
