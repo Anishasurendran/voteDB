@@ -31,8 +31,6 @@ class Electioninfo(models.Model):
     election=models.ForeignKey(Election,on_delete=models.CASCADE)
     candidate=models.ForeignKey(CandidateDetails,on_delete=models.CASCADE)
 
-    
-
 class Voting(models.Model):
     elect=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
     vote=models.IntegerField(default=0)
