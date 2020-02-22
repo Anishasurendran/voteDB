@@ -39,10 +39,9 @@ class ElectionList(generics.ListCreateAPIView):
 
     def list(self, request):
         user = request.user
-        userDetails =  UserDetails.objects.filter(user =  4)
-        print(userDetails)
+        userDetails =  UserDetails.objects.filter(user =  user)
+        print(userDetails[0].id)
         queryset = Election.objects.filter(location =  userDetails[0].location)
-        print(queryset)
         serializer = ElectionSerializer(queryset, many=True)
         return Response(serializer.data)
 

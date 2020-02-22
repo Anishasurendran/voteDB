@@ -13,7 +13,7 @@ class ElectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Election
-        fields = ('election_name','election_sdate', 'election_edate','location', 'count',)
+        fields = ('id', 'election_name','election_sdate', 'election_edate','location', 'count',)
 
     def get_count(self, obj):
         election_info  = Electioninfo.objects.filter(election = obj).count()
