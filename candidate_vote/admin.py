@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CandidateDetails,Election, Location
+from .models import CandidateDetails,Election, Location, Electioninfo, Voting
 
 @admin.register(CandidateDetails)
 class CandidateDetailsAdmin(admin.ModelAdmin):
@@ -18,3 +18,22 @@ class ElectionAdmin(admin.ModelAdmin):
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     list_display=('location',)
+
+@admin.register(Electioninfo)
+class ElectionAdmin(admin.ModelAdmin):
+    list_display=('election','candidate',)
+    ordering=('election','candidate',)
+    search_fields=('election',)
+
+@admin.register(Voting)
+class VotingAdmin(admin.ModelAdmin):
+    list_display=('elect','vote',)
+    readonly_fields=('elect','vote',)
+    ordering=('elect','vote',)
+    search_fields=('elect',)
+    def has_add_permission(self, request):
+        return False
+    def has_change_permission(self, request, obj=None):
+        return False
+    def has_delete_permission(self, request, obj=None):
+        return False
