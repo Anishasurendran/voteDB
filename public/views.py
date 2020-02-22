@@ -109,33 +109,33 @@ def image_upload(request, id):
             if userTempData:
 
                 image = Image.open(BytesIO(base64.b64decode(upload_form.cleaned_data['profile_photo'])))
-                user =  User.objects.get(username = userTempData.aadhar)
-                if not user:
+                user =  User.objects.filter(username = userTempData.aadhar)
+                if not user.exists():
                     user = User.objects.create_user(username=userTempData.aadhar, first_name=userTempData.name)
                     user.set_password(userTempData.dob)
 
-                location = Location.objects.get(pk=1)
-                userDetails =  UserDetails(
-                    user=user,
-                    adhar_number=userTempData.aadhar, 
-                    name= userTempData.name,
-                    address= userTempData.address,
-                    careof= userTempData.careof,
-                    gender= userTempData.gender,
-                    dob= userTempData.dob,
-                    district= userTempData.dist,
-                    phone_number=  request.session['phone_number'],
-                    location=location
-                )
-                userDetails.save()
-                image_io = BytesIO()
-                image.save(image_io, format='png', quality=100) # you can change format and quality
+                    location = Location.objects.get(pk=1)
+                    userDetails =  UserDetails(
+                        user=user,
+                        adhar_number=userTempData.aadhar, 
+                        name= userTempData.name,
+                        address= userTempData.address,
+                        careof= userTempData.careof,
+                        gender= userTempData.gender,
+                        dob= userTempData.dob,
+                        district= userTempData.dist,
+                        phone_number=  request.session['phone_number'],
+                        location=location
+                    )
+                    userDetails.save()
+                    image_io = BytesIO()
+                    image.save(image_io, format='png', quality=100) # you can change format and quality
 
-                # save to model
-                image_name = "profile.png"
-                userDetails.photo.save(image_name, ContentFile(image_io.getvalue()))
+                    # save to model
+                    image_name = "profile.png"
+                    userDetails.photo.save(image_name, ContentFile(image_io.getvalue()))
 
-                return redirect('confirm/complete/')
+            return HttpResponse("Done")
         else:
             print(upload_form.errors)
             return HttpResponse("Error")
