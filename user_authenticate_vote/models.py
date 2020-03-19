@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from candidate_vote.models import Location
 
 class UserDetails(models.Model):
-    user =  models.ForeignKey(User, on_delete=models.CASCADE, default = None)
+    user =  models.OneToOneField(User, on_delete=models.CASCADE, default = None)
     adhar_number=models.CharField(max_length=12,default=None)
     name=models.CharField(max_length=10,default=None)
     address=models.CharField(max_length=30,default=None)
@@ -18,6 +18,7 @@ class UserDetails(models.Model):
     phone_number=models.CharField(max_length=10,default=None)
     photo=models.ImageField(default=None, blank=True, null=True)
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
+    face_encodings = models.BinaryField(null=True)
 
     
 

@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from user_authenticate_vote.models import UserDetails
-from .models import CandidateDetails,Election,Voting,Location, Electioninfo
+from .models import CandidateDetails,Election,Voting,Location, Electioninfo, UserVoting
 from .serializers import CandidateDetailsSerializer,ElectionSerializer,Votingserializer,Locationserializer, ElectionCandidateSerializer
 
 
@@ -48,8 +48,11 @@ class ElectionList(generics.ListCreateAPIView):
 class VotingCreate(generics.CreateAPIView):
     queryset = Voting.objects.all()
     serializer_class = Votingserializer
+    permission_classes = [permissions.AllowAny]
 
+    def post(self, request, *args, **kwargs):
+        print(request.user)
+        electionId =  request.data['election']
+        userVoting = UserVoting.objects.filter(election =  electionId )
 
-class VotingUpdate(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Voting.objects.all()
-    serializer_class=Votingserializer
+        return super().post(request, *args, **kwargs)

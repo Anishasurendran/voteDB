@@ -27,10 +27,10 @@ class ElectionAdmin(admin.ModelAdmin):
 
 @admin.register(Voting)
 class VotingAdmin(admin.ModelAdmin):
-    list_display=('elect','vote',)
-    readonly_fields=('elect','vote',)
-    ordering=('elect','vote',)
-    search_fields=('elect',)
+    list_display=('election','vote',)
+    readonly_fields=('election','vote',)
+    ordering=('election','vote',)
+    search_fields=('election',)
     def has_add_permission(self, request):
         return False
     def has_change_permission(self, request, obj=None):

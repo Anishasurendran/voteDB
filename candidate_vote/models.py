@@ -32,7 +32,9 @@ class Electioninfo(models.Model):
     candidate=models.ForeignKey(CandidateDetails,on_delete=models.CASCADE)
 
 class Voting(models.Model):
-    elect=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
+    election=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
     vote=models.IntegerField(default=0)
     
-    
+class UserVoting(models.Model):
+    election=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
+    user =  models.OneToOneField(User, on_delete=models.CASCADE, default = None)
