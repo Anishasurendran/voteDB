@@ -106,8 +106,8 @@ def image_upload(request, id):
             if userTempData:
 
                 image = Image.open(BytesIO(base64.b64decode(upload_form.cleaned_data['profile_photo'])))
-                user =  User.objects.get(username = userTempData.aadhar)
-                if not user:
+                user =  User.objects.filter(username = userTempData.aadhar)
+                if not user.exists():
                     user = User.objects.create_user(username=userTempData.aadhar, first_name=userTempData.name)
                     user.set_password(userTempData.dob)
 
