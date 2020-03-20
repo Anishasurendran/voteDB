@@ -28,9 +28,8 @@ class ElectionAdmin(admin.ModelAdmin):
 @admin.register(Voting)
 class VotingAdmin(admin.ModelAdmin):
     list_display=('election','vote',)
-    readonly_fields=('election','vote',)
-    ordering=('election','vote',)
-    search_fields=('election',)
+    ordering=('election__id','vote',)
+    search_fields=('vote',)
     def has_add_permission(self, request):
         return False
     def has_change_permission(self, request, obj=None):

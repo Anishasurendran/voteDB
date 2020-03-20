@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Create your models here.
 
@@ -32,9 +34,16 @@ class Electioninfo(models.Model):
     candidate=models.ForeignKey(CandidateDetails,on_delete=models.CASCADE)
 
 class Voting(models.Model):
-    election=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
+    election = models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
     vote=models.IntegerField(default=0)
     
 class UserVoting(models.Model):
     election=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
     user =  models.OneToOneField(User, on_delete=models.CASCADE, default = None)
+
+def save_user(sender, instance, created, *args, **kwargs):
+    if instance._state.adding:
+        voting =  Voting(election = instance, vote = 0)
+        voting.save()
+
+post_save.connect(save_user, sender=Electioninfo)

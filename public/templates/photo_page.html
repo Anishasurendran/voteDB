@@ -212,6 +212,7 @@
                 contentType: false,
                 success: function (response) {
                     alert("Photo Uploaded")
+                    window.location.href = '{% url "completed_profile" %}' 
                 }
             })
 

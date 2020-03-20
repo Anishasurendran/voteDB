@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from candidate_vote.models import Location
+from election.models import Location
+from .tasks import get_encodings_from_profile_pic
+from django.db.models.signals import pre_save
 
 class UserDetails(models.Model):
     user =  models.OneToOneField(User, on_delete=models.CASCADE, default = None)
@@ -20,5 +22,8 @@ class UserDetails(models.Model):
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
     face_encodings = models.BinaryField(null=True)
 
-    
 
+def save_user(sender, instance, *args, **kwargs):
+    instance.face_encodings = get_encodings_from_profile_pic(instance.photo)
+
+pre_save.connect(save_user, sender=UserDetails)

@@ -10,9 +10,6 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
 
-
-
-
 from zipfile import ZipFile
 from datetime import datetime
 import json
@@ -21,9 +18,9 @@ import xml.etree.ElementTree as ET
 from .forms import UploadXMLForm, ProfileCompleteFrom, PhoneVerificationForm, PhotoUploadForm
 from .models import TempData
 from django.contrib.auth.models import User
-from candidate_vote.models import Location
+from election.models import Location
 from .serializers import TempDataSerializers
-from user_authenticate_vote.models import UserDetails
+from users.models import UserDetails
 
 
 
@@ -150,7 +147,7 @@ def image_upload(request, id):
                     userData.photo.save(image_name, ContentFile(image_io.getvalue()))
 
 
-                return redirect('confirm/complete/')
+                return HttpResponse({"success": True})
         else:
             print(upload_form.errors)
             return HttpResponse("Error")
