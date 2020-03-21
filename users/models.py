@@ -18,7 +18,7 @@ class UserDetails(models.Model):
     dob=models.DateField(default=None)
     district=models.CharField(max_length=15,default=None)
     phone_number=models.CharField(max_length=10,default=None)
-    photo=models.ImageField(default=None, blank=True, null=True)
+    photo=models.ImageField(null=True)
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
     face_encodings = models.BinaryField(null=True)
 

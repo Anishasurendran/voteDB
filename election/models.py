@@ -23,7 +23,7 @@ class CandidateDetails(models.Model):
 
 
 class Election(models.Model):
-    election_name=models.CharField(max_length=10,default=None)
+    election_name=models.CharField(max_length=255,default=None)
     election_sdate=models.DateField(default=None)
     election_edate=models.DateField(default=None)
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
@@ -34,16 +34,17 @@ class Electioninfo(models.Model):
     candidate=models.ForeignKey(CandidateDetails,on_delete=models.CASCADE)
 
 class Voting(models.Model):
-    election = models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
+    election = models.OneToOneField(Electioninfo,on_delete=models.CASCADE) 
     vote=models.IntegerField(default=0)
     
 class UserVoting(models.Model):
-    election=models.ForeignKey(Electioninfo,on_delete=models.CASCADE) 
-    user =  models.OneToOneField(User, on_delete=models.CASCADE, default = None)
+    election=models.OneToOneField(Election,on_delete=models.CASCADE) 
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, default = None)
 
 def save_user(sender, instance, created, *args, **kwargs):
-    if instance._state.adding:
-        voting =  Voting(election = instance, vote = 0)
+    print(created)
+    if created:
+        voting = Voting(election = instance, vote = 0)
         voting.save()
 
 post_save.connect(save_user, sender=Electioninfo)

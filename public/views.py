@@ -117,7 +117,7 @@ def image_upload(request, id):
                 userDetails =  UserDetails.objects.filter(adhar_number = userTempData.aadhar)
                 if not userDetails.exists():
                     userData =  UserDetails(
-                        user=user,
+                        user=user[0],
                         adhar_number=userTempData.aadhar, 
                         name= userTempData.name,
                         address= userTempData.address,
@@ -134,11 +134,11 @@ def image_upload(request, id):
 
                     # save to model
                     image_name = "profile.png"
+                    print(image_name)
                     userData.photo.save(image_name, ContentFile(image_io.getvalue()))
                 else:
                     userData =  userDetails[0]
                     userData.phone_number=  request.session['phone_number']
-                    userData.save()
                     image_io = BytesIO()
                     image.save(image_io, format='png', quality=100) # you can change format and quality
 
