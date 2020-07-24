@@ -22,6 +22,9 @@ class UserDetails(models.Model):
     location=models.ForeignKey(Location,on_delete=models.CASCADE,default=None)
     face_encodings = models.BinaryField(null=True)
 
+    def __str__(self):
+        return self.name
+
 
 def save_user(sender, instance, *args, **kwargs):
     instance.face_encodings = get_encodings_from_profile_pic(instance.photo)
